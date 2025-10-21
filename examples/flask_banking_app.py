@@ -36,6 +36,13 @@ ledger = Ledger(
 # Initialize RSA signer for critical transactions
 signer = RSASigner(key_size=2048)
 
+# Create wrapper that converts string to bytes for signing
+def sign_wrapper(data_str):
+    """Wrapper to convert string hash to bytes for RSA signing."""
+    if isinstance(data_str, str):
+        data_str = data_str.encode('utf-8')
+    return signer.sign(data_str)
+
 # In-memory database (for demo purposes)
 accounts = {}
 transactions = []
@@ -65,7 +72,7 @@ def log_audit_entry(event_type, data, sign=False):
             data=audit_data,
             metadata={"critical": True, "compliance": "SOX"},
             sign=True,
-            signer=signer.sign
+            signer=sign_wrapper
         )
     else:
         entry = ledger.append(data=audit_data)

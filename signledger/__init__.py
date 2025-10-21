@@ -13,7 +13,7 @@ from signledger.core.exceptions import (
     StorageError,
 )
 
-__version__ = "0.1.0"
+__version__ = "1.0.0"
 __author__ = "Vipin Kumar"
 __email__ = "vipin08@example.com"
 
